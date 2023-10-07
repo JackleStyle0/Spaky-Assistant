@@ -3,6 +3,9 @@ module.exports = {
     depostiExpense
 }
 
+const { Client } = require("@notionhq/client");
+const notion = new Client({ auth: process.env.NOTION_KEY });
+
 const category = {
     "t": "transportation",
     "f": "food",
@@ -28,7 +31,7 @@ function getCategoryDesciption(input) {
 
 async function updateDb(request, response) {
     const pageId = process.env.NOTION_PAGE_ID;
-    const title = request.body.dbName;
+    const title = "DepositExpense";
   
     try {
           const newDb = await notion.databases.create({
@@ -47,17 +50,13 @@ async function updateDb(request, response) {
             properties: {
               Price: {
                 title: {},
-              },
-              Category: {
-                title: {},
-              },
-              Date: {
-                title: {},
-              },
+              }
             },
           });
-          response.json({ message: "success!", data: newDb });
+          // response.json({ message: "success!", data: newDb });
+          console.log("Success")
         } catch (error) {
-          response.json({ message: "error", error });
+          console.log(error)
+          // response.json({ message: "error", error });
         }
   }
