@@ -4,6 +4,8 @@
  */
 
 const path = require("path");
+const { Client } = require("@notionhq/client")
+const notion = new Client({ auth: process.env.NOTION_KEY })
 
 // Require the fastify framework and instantiate it
 const fastify = require("fastify")({
@@ -106,20 +108,3 @@ fastify.post("/", function (request, reply) {
   // The Handlebars template will use the parameter values to update the page with the chosen color
   return reply.view("/src/pages/index.hbs", params);
 });
-
-// Run the server and report out to the logs
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-  }
-);
-// 26 of previous mo
-function getMaxDate() {
-
-  return
-}
